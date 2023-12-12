@@ -723,6 +723,12 @@ func fieldDefaultValue(g *protogen.GeneratedFile, f *fileInfo, m *messageInfo, f
 }
 
 func fieldJSONTagValue(field *protogen.Field) string {
+	if field.Desc.Options().(*descriptorpb.FieldOptions).GetJsonTagIgnore() {
+		return "-"
+	}
+	if field.Desc.Options().(*descriptorpb.FieldOptions).GetJsonTagOmitempty() {
+		return string(field.Desc.Name())
+	}
 	return string(field.Desc.Name()) + ",omitempty"
 }
 

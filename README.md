@@ -1,5 +1,18 @@
 # Go support for Protocol Buffers
 
+## 说明
+
+1. fork from [protocolbuffers/protobuf-go](https://github.com/protocolbuffers/protobuf-go)
+2. 为了控制json tag
+3. 使用main分支对应的protobuf的descriptor.proto文件,目前是25.0-rc2(v4.25.0-rc2)
+4. 修改对应版本的descriptor.proto:
+    ```
+    optional bool json_tag_omitempty = 22; // add omitemtpy to json tag in golang
+    optional bool json_tag_ignore = 23; // replease json tag with json:"-"
+   ```
+5. 生成descriptor.pb.go之后替换[types/descriptorpb/descriptor.pb.go](types/descriptorpb/descriptor.pb.go)
+6. 修改[cmd/protoc-gen-go/internal_gengo/main.go](cmd/protoc-gen-go/internal_gengo/main.go)
+7. 同步修改Goland中插件protobuf里面的文件,如第四步那样
 [![Go Reference](https://pkg.go.dev/badge/google.golang.org/protobuf.svg)](https://pkg.go.dev/google.golang.org/protobuf)
 [![Build Status](https://travis-ci.org/protocolbuffers/protobuf-go.svg?branch=master)](https://travis-ci.org/protocolbuffers/protobuf-go)
 
